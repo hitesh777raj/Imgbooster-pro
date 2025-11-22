@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Free tool to increase image size in KB and MB online. Best photo size increaser for government forms, SSC, UPSC, and admission applications.">
+    <meta name="keywords" content="increase image size, increase photo size in kb, image size increaser, photo size converter, kb to mb, jpg size increaser">
+    
+    <title>ImgBooster Pro - Increase Image Size (Free Tool)</title>
+    
+    <!-- Modern Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --primary-grad: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --process-btn: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+            --download-btn: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
+            --bg-dark: #1e1e2f;
+            --card-white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at 10% 20%, rgb(69, 86, 102) 0%, rgb(34, 34, 34) 90%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            padding-bottom: 120px; /* Increased space for Footer + Sticky Ad */
+        }
+
+        /* --- TOOL UI --- */
+        .card { 
+            background: var(--card-white); 
+            width: 100%; 
+            max-width: 450px; 
+            border-radius: 24px; 
+            padding: 35px 25px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4); 
+            text-align: center; 
+            position: relative; 
+            margin-bottom: 20px;
+            z-index: 10;
+        }
+
+        .header h2 { color: #333; font-weight: 700; margin-bottom: 5px; }
+        .header span { color: #00c6ff; }
+        .header p { color: #888; font-size: 13px; margin-bottom: 25px; }
+
+        .upload-zone { 
+            border: 2px dashed #cbd5e0; 
+            border-radius: 16px; 
+            padding: 25px; 
+            background: #f8fafc; 
+            cursor: pointer; 
+            transition: 0.3s; 
+            position: relative; 
+            min-height: 180px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+        }
+        .upload-zone:hover { border-color: #00c6ff; background: #f0f9ff; }
+        
+        #previewImg { max-width: 100%; max-height: 160px; border-radius: 8px; display: none; object-fit: contain; }
+
+        .controls { margin-top: 25px; display: flex; flex-direction: column; gap: 15px; }
+
+        .input-wrapper { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            gap: 0; 
+            border: 2px solid #e2e8f0; 
+            border-radius: 12px; 
+            padding: 5px; 
+            width: 100%; 
+            max-width: 250px; 
+            margin: 0 auto; 
+            background: white; 
+        }
+
+        .size-input { border: none; padding: 10px; font-size: 18px; width: 60%; text-align: center; font-weight: bold; outline: none; color: #333; }
+        .unit-select { border: none; background: #eff6ff; padding: 10px 15px; font-size: 14px; font-weight: 600; color: #00c6ff; border-radius: 8px; cursor: pointer; outline: none; }
+
+        .btn { 
+            width: 100%; 
+            padding: 16px; 
+            border: none; 
+            border-radius: 50px; 
+            font-size: 16px; 
+            font-weight: 700; 
+            color: white; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+            transition: transform 0.2s; 
+        }
+        .btn:active { transform: scale(0.97); }
+        .btn-process { background: var(--process-btn); }
+        .btn-download { background: var(--download-btn); color: #1e1e2f; display: none; margin-top: 10px; animation: slideUp 0.4s ease forwards; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .status { font-size: 12px; color: #888; margin-top: 5px; min-height: 18px; }
+
+        .btn.loading::after { content: ""; width: 20px; height: 20px; border: 3px solid #fff; border-top: 3px solid transparent; border-radius: 50%; position: absolute; top: calc(50% - 13px); left: calc(50% - 13px); animation: spin 0.8s linear infinite; display: block; }
+        .btn.loading span { display: none; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* --- ADS & FOOTER CSS --- */
+        
+        .native-ad-container {
+            width: 100%;
+            max-width: 700px;
+            background: transparent;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 50px;
+            z-index: 5;
+        }
+
+        .sticky-ad-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            border-top: 1px solid #ddd;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px 0;
+            z-index: 9999;
+            height: 60px;
+        }
+
+        /* --- SEO FOOTER STYLE --- */
+        .seo-footer {
+            width: 100%;
+            max-width: 700px;
+            margin-top: 30px;
+            text-align: center;
+            color: #b0b0b0;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .seo-footer h3 { color: #fff; font-size: 16px; margin-bottom: 10px; }
+        .seo-footer p { margin-bottom: 15px; }
+        .copyright { border-top: 1px solid #444; padding-top: 10px; margin-top: 10px; font-size: 12px; color: #666; }
+
+    </style>
+</head>
+<body>
+
+    <!-- MAIN CARD -->
+    <div class="card">
+        <div class="header">
+            <h2>Img<span>Booster</span> Pro</h2>
+            <p>Increase Image Size (KB / MB)</p>
+        </div>
+
+        <!-- Upload Zone -->
+        <div class="upload-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+            <div id="placeholderContent">
+                <div style="font-size: 40px; margin-bottom: 10px; opacity: 0.7;">📁</div>
+                <p style="color: #64748b; font-size: 14px;">Tap to Select Image</p>
+            </div>
+            <img id="previewImg" alt="Preview">
+        </div>
+        
+        <input type="file" id="fileInput" style="display: none;" accept="image/*">
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="input-wrapper">
+                <input type="number" id="sizeInput" class="size-input" placeholder="50">
+                <select id="unitSelect" class="unit-select">
+                    <option value="KB">KB</option>
+                    <option value="MB">MB</option>
+                </select>
+            </div>
+
+            <div class="status" id="statusText">No image selected</div>
+
+            <button class="btn btn-process" id="processBtn" onclick="startProcessing()">
+                <span>Increase Size</span>
+            </button>
+
+            <!-- Download with Smart Link -->
+            <a id="downloadLink" style="text-decoration: none;" onclick="openSmartLink()">
+                <button class="btn btn-download" id="downloadBtn">Download Image</button>
+            </a>
+        </div>
+    </div>
+
+
+    <!-- --- [1. NATIVE ADS (Below Card)] --- -->
+    <div class="native-ad-container">
+        <script async="async" data-cfasync="false" src="//pl26741731.effectivegatecpm.com/97ee0b8e7e036bcf5a094ca19c8aae91/invoke.js"></script>
+        <div id="container-97ee0b8e7e036bcf5a094ca19c8aae91"></div>
+    </div>
+    <!-- ------------------------------------ -->
+
+
+    <!-- --- [SEO FOOTER (For Google Ranking)] --- -->
+    <footer class="seo-footer">
+        <h3>About ImgBooster Pro</h3>
+        <p>
+            ImgBooster Pro is a 100% free online tool to <strong>increase image size in KB and MB</strong> without losing visual quality. 
+            Easily convert low-size JPG/PNG images to higher sizes for <strong>government job applications (SSC, UPSC, IBPS)</strong>, 
+            admission forms, and high-quality printing.
+        </p>
+        <p>
+            Features: Increase photo size to 20KB, 50KB, 100KB, 200KB, 1MB, 2MB, and more. 
+            Secure & Fast processing directly in your browser.
+        </p>
+        <div class="copyright">
+            © 2024 ImgBooster Pro. All rights reserved.
+        </div>
+    </footer>
+    <!-- ----------------------------------------- -->
+
+
+    <!-- --- [2. STICKY FOOTER BANNER] --- -->
+    <div class="sticky-ad-container">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : 'b3d604e8072a3bb5fc0a7b42b9c28574',
+                'format' : 'iframe',
+                'height' : 50,
+                'width' : 320,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/b3d604e8072a3bb5fc0a7b42b9c28574/invoke.js"></script>
+    </div>
+    <!-- --------------------------------- -->
+
+
+    <!-- --- [3. SOCIAL ADS SCRIPT] --- -->
+    <script type='text/javascript' src='//pl26741749.effectivegatecpm.com/2b/8c/66/2b8c668a58bbe6737a9ba2bbc98f5b87.js'></script>
+    <!-- ------------------------------ -->
+
+
+    <script>
+        // --- SMART LINK FUNCTION ---
+        function openSmartLink() {
+            window.open('https://www.effectivegatecpm.com/b51992wt?key=62b7b670e8a9759bf8a5506b7e4ed13a', '_blank');
+        }
+
+        // --- WEBSITE LOGIC ---
+        const fileInput = document.getElementById('fileInput');
+        const previewImg = document.getElementById('previewImg');
+        const placeholderContent = document.getElementById('placeholderContent');
+        const processBtn = document.getElementById('processBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const downloadLink = document.getElementById('downloadLink');
+        const statusText = document.getElementById('statusText');
+        const unitSelect = document.getElementById('unitSelect');
+        let originalFile = null;
+
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                originalFile = file;
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    previewImg.src = ev.target.result;
+                    previewImg.style.display = "block";
+                    placeholderContent.style.display = "none";
+                    downloadBtn.style.display = "none";
+                    processBtn.innerHTML = "<span>Increase Size</span>";
+                    processBtn.classList.remove("loading");
+                    processBtn.disabled = false;
+                    let displaySize = (file.size / 1024).toFixed(2) + " KB";
+                    if(file.size > 1024 * 1024) { displaySize = (file.size / (1024*1024)).toFixed(2) + " MB"; }
+                    statusText.innerText = `Original: ${displaySize}`;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function startProcessing() {
+            if (!originalFile) { alert("Please select an image first!"); return; }
+            const inputVal = document.getElementById('sizeInput').value;
+            if (!inputVal || inputVal <= 0) { alert("Please enter a valid size."); return; }
+
+            processBtn.classList.add("loading");
+            statusText.innerText = "Processing...";
+
+            setTimeout(() => { executeResize(); }, 1500);
+        }
+
+        function executeResize() {
+            const inputVal = parseFloat(document.getElementById('sizeInput').value);
+            const unit = unitSelect.value;
+            let targetBytes = (unit === 'KB') ? inputVal * 1024 : inputVal * 1024 * 1024;
+
+            const reader = new FileReader();
+            reader.readAsArrayBuffer(originalFile);
+
+            reader.onload = function(e) {
+                const arrayBuffer = e.target.result;
+                const currentBytes = arrayBuffer.byteLength;
+                let finalBlob;
+
+                if (targetBytes > currentBytes) {
+                    const paddingNeeded = targetBytes - currentBytes;
+                    const dummyData = new Uint8Array(paddingNeeded);
+                    finalBlob = new Blob([arrayBuffer, dummyData], { type: originalFile.type });
+                    statusText.innerText = `Success! Size increased to ${inputVal} ${unit}`;
+                } else {
+                    finalBlob = new Blob([arrayBuffer], { type: originalFile.type });
+                    statusText.innerText = `Original is already larger.`;
+                }
+
+                const url = URL.createObjectURL(finalBlob);
+                downloadLink.href = url;
+                const nameWithoutExt = originalFile.name.split('.').slice(0, -1).join('.');
+                const extension = originalFile.name.split('.').pop();
+                downloadLink.download = `${nameWithoutExt}_Increased_${inputVal}${unit}.${extension}`;
+
+                processBtn.classList.remove("loading");
+                processBtn.innerHTML = "<span>Processed</span>";
+                processBtn.disabled = true;
+                downloadBtn.style.display = "block";
+            };
+        }
+    </script>
+</body>
+</html>
